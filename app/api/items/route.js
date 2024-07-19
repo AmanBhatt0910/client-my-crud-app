@@ -33,7 +33,7 @@ export async function POST(req) {
 
 export async function PUT(req) {
   const formData = await req.formData();
-  const itemId = new URL(req.url).searchParams.get("id"); // Update to get ID from query parameters
+  const itemId = new URL(req.url).searchParams.get("id");
   const title = formData.get("title");
   const description = formData.get("description");
   const image = formData.get("image");
@@ -59,13 +59,20 @@ export async function PUT(req) {
 }
 
 export async function DELETE(req) {
-  const itemId = new URL(req.url).searchParams.get("id"); // Update to get ID from query parameters
+  const itemId = new URL(req.url).searchParams.get("id");
   await connectMongoDB();
-  const result = await Item.deleteOne({ _id: itemId });
-
-  if (result.deletedCount === 0) {
+  
+  const item = await Item.findById(itemId);
+  if (!item) {
     return new Response(JSON.stringify({ message: "Item not found" }), { status: 404 });
   }
 
-  return new Response(JSON.stringify({ message: "Item deleted" }));
+  const imagePath = path.join(process.cwd(), `public${item.iconUrl}`);
+  if (fs.existsSync(imagePath)) {
+    fs.unlinkSync(imagePath);
+  }
+
+  await Item.deleteOne({ _id: itemId });
+
+  return new Response(JSON.stringify({ message: "Item and image deleted" }));
 }
