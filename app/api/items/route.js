@@ -33,7 +33,7 @@ export async function POST(req) {
 
 export async function PUT(req) {
   const formData = await req.formData();
-  const itemId = new URL(req.url).pathname.split('/').pop();
+  const itemId = new URL(req.url).searchParams.get("id"); // Update to get ID from query parameters
   const title = formData.get("title");
   const description = formData.get("description");
   const image = formData.get("image");
@@ -59,7 +59,7 @@ export async function PUT(req) {
 }
 
 export async function DELETE(req) {
-  const itemId = new URL(req.url).pathname.split('/').pop();
+  const itemId = new URL(req.url).searchParams.get("id"); // Update to get ID from query parameters
   await connectMongoDB();
   const result = await Item.deleteOne({ _id: itemId });
 

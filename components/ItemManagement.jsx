@@ -68,7 +68,7 @@ export default function ItemManagement() {
     formData.append("description", description);
 
     try {
-      const res = await fetch(`/api/items/${editingItemId}`, {
+      const res = await fetch(`/api/items?id=${editingItemId}`, {
         method: "PUT",
         body: formData,
       });
@@ -88,7 +88,7 @@ export default function ItemManagement() {
 
   const handleDeleteItem = async (itemId) => {
     try {
-      const res = await fetch(`/api/items/${itemId}`, {
+      const res = await fetch(`/api/items?id=${itemId}`, {
         method: "DELETE",
       });
       if (!res.ok) {
