@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import ItemManagement from "@/components/ItemManagement";
-import UserInfo from "@/components/UserInfo";
+import UserInfo from "@/app/admin/components/UserInfo";
 
 export default function Dashboard() {
   const [activeComponent, setActiveComponent] = useState("service");

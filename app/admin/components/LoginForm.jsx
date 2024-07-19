@@ -63,7 +63,7 @@ export default function LoginForm() {
             </div>
           )}
 
-          <Link href="/register" passHref>
+          <Link href="/admin/register" passHref>
             <span className="text-sm text-gray-300 mt-2 cursor-pointer hover:underline">
               Don't have an account? Register
             </span>

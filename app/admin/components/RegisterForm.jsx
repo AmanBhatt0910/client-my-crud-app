@@ -97,7 +97,7 @@ export default function RegisterForm() {
             </div>
           )}
 
-          <Link href="/" passHref>
+          <Link href="/admin/login" passHref>
             <span className="text-sm text-gray-300 mt-2 cursor-pointer hover:underline">
               Already have an account? Login
             </span>
