@@ -1,20 +1,24 @@
-"use client";
+import Content from "@/app/components/Dashboard/Content";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-import { useState } from "react";
-import Sidebar from "@/components/Sidebar";
-import ItemManagement from "@/components/ItemManagement";
-import UserInfo from "@/app/components/UserInfo";
 
-export default function Dashboard() {
-  const [activeComponent, setActiveComponent] = useState("service");
+export default async function Dashboard() {
+  const session = await getServerSession(authOptions);
+
+  if (!session) redirect("/admin/");
 
   return (
-    <div className="flex">
-      <Sidebar setActiveComponent={setActiveComponent} />
-      <div className="flex-grow p-6 bg-gray-900">
-        {activeComponent === "service" && <ItemManagement />}
-        {activeComponent === "userInfo" && <UserInfo />}
-      </div>
+    <div>
+      <Content />
     </div>
-  );
+  )
+
+
+
+
+
+
+
 }
